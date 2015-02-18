@@ -1,5 +1,10 @@
 /**
- * Reads and writes several WGS84 coordinate formats from an input string.
+ * Merkator - Reads and writes WGS84 coordinates in sexagesimal and decimal notation.
+ *
+ * (c) Stephan Besser <stephan.besser@googlemail.com>
+ *
+ * For full copyright and license information, please review the LICENSE
+ * file that was distributed with this source code or visit http://www.gnu.org/licenses/gpl-3.0
  *
  * @constructor
  */
@@ -330,7 +335,7 @@ function Merkator() {
      */
     this.readString = function (string) {
         if (createCoordFromString(string)) {
-            return this;
+            return _this;
         }
         console.log('Input string ' + string + ' is not a valid coordinate string!');
 

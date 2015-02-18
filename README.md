@@ -1,6 +1,4 @@
 MERKATOR
 ======================================
 
-Simple coordinate IO handling.
-
-Provides methods to read coordinates in sexagesimal and decimal notations.
+Read/write WGS84 coordinates in sexagesimal and decimal notation.
