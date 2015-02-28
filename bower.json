@@ -1,6 +1,6 @@
 {
   "name": "reskume-merkator",
-  "version": "0.8.0",
+  "version": "{{VERSION}}",
   "ignore": [
 	".jshintrc",
 	"**/*.txt",
