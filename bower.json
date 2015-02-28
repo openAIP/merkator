@@ -1,0 +1,14 @@
+{
+  "name": "reskume-merkator",
+  "version": "0.8.0",
+  "ignore": [
+	".jshintrc",
+	"**/*.txt",
+	"**/*.md",
+	"LICENCE"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
