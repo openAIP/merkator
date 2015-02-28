@@ -10,5 +10,13 @@
   "dependencies": {
   },
   "devDependencies": {
-  }
+  },
+  "keywords": [
+  	"WGS84",
+  	"coordinates",
+  	"sexagesimal",
+  	"decimal",
+  	"merkator",
+  	"spatial"
+  ]
 }
