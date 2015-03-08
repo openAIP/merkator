@@ -1,9 +1,9 @@
 {
   "name": "reskume-merkator",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "keywords": [
-	"WGS84",
+    "WGS84",
     "coordinates",
     "sexagesimal",
     "decimal",
@@ -11,17 +11,17 @@
     "spatial"
   ],
   "homepage": "https://github.com/reskume/merkator",
-  "main": "merkator.js",
+  "main": "dist/merkator.js",
   "repository": {
-	"type": "git",
-	"url": "git://github.com/reskume/merkator.git"
+    "type": "git",
+    "url": "git://github.com/reskume/merkator.git"
   },
   "license": "GPL3.0",
   "bugs": {
-	"url": "https://github.com/reskume/merkator/issues"
+    "url": "https://github.com/reskume/merkator/issues"
   },
   "dependencies": {
-	"jquery": "2.*"
+    "jquery": "2.*"
   },
   "devDependencies": {},
   "ext": []

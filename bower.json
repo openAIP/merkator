@@ -1,6 +1,6 @@
 {
   "name": "reskume-merkator",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "ignore": [
     ".jshintrc",
     "**/*.txt",
@@ -26,7 +26,7 @@
   ],
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "main": [
-  	"merkator.js"
+    "dist/merkator.js"
   ],
   "license": "GPL3.0"
 }
