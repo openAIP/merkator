@@ -367,7 +367,7 @@ function Merkator() {
         var xDms = convertDecToDms(_this.lon);
         (_this.lon > 0) ? xDms += 'E' : xDms += 'W';
         // latitude value
-        var yDms = convertDecToDms(lat);
+        var yDms = convertDecToDms(_this.lat);
         (_this.lat > 0) ? yDms += 'N' : yDms += 'S';
 
         return yDms + ' ' + xDms;
