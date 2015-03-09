@@ -1,6 +1,6 @@
 {
   "name": "reskume-merkator",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "keywords": [
     "WGS84",
