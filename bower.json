@@ -1,6 +1,6 @@
 {
   "name": "reskume-merkator",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "ignore": [
     ".jshintrc",
     "**/*.txt",
@@ -22,11 +22,11 @@
   ],
   "homepage": "https://github.com/reskume/merkator",
   "authors": [
-    "Stephan Besser <stephan.besser@me.com>"
+    "Stephan Besser <stephan.besser@googlemail.com>"
   ],
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "main": [
     "dist/merkator.js"
   ],
-  "license": "GPL3.0"
+  "license": "MIT"
 }

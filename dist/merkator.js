@@ -4,7 +4,7 @@
  * (c) Stephan Besser <stephan.besser@googlemail.com>
  *
  * For full copyright and license information, please review the LICENSE
- * file that was distributed with this source code or visit http://www.gnu.org/licenses/gpl-3.0
+ * file that was distributed with this source code.
  *
  * @constructor
  */
