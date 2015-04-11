@@ -1,6 +1,6 @@
 {
-  "name": "reskume-merkator",
-  "version": "0.8.3",
+  "name": "openaip-merkator",
+  "version": "0.8.4",
   "ignore": [
     ".jshintrc",
     "**/*.txt",
@@ -20,7 +20,7 @@
     "merkator",
     "spatial"
   ],
-  "homepage": "https://github.com/reskume/merkator",
+  "homepage": "https://github.com/openAIP/merkator",
   "authors": [
     "Stephan Besser <stephan.besser@googlemail.com>"
   ],
