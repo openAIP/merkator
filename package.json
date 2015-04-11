@@ -1,6 +1,6 @@
 {
-  "name": "reskume-merkator",
-  "version": "0.8.3",
+  "name": "openAIP-merkator",
+  "version": "0.8.4",
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "keywords": [
     "WGS84",
@@ -10,15 +10,15 @@
     "merkator",
     "spatial"
   ],
-  "homepage": "https://github.com/reskume/merkator",
+  "homepage": "https://github.com/openAIP/merkator",
   "main": "dist/merkator.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/reskume/merkator.git"
+    "url": "git://github.com/openAIP/merkator.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reskume/merkator/issues"
+    "url": "https://github.com/openAIP/merkator/issues"
   },
   "dependencies": {
     "jquery": "2.*"
