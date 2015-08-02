@@ -326,15 +326,16 @@ var readCoord = function (x, y) {
  * Merkator object is returned. Otherwise the method will throw a console.log error and return false.
  *
  * @param string user input string. Should either be a WGS84 coordinate string in sexagesimal or decimal notation
- * @returns {*}
+ * @returns {boolean}
  */
 var readString = function (string) {
-    if (createCoordFromString(string)) {
-        return _this;
-    }
-    console.log('Input string ' + string + ' is not a valid coordinate string!');
+    if (! createCoordFromString(string)) {
+        console.log('Input string ' + string + ' is not a valid coordinate string!');
 
-    return false;
+        return false;
+    }
+
+    return true;
 };
 
 /**
