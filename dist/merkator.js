@@ -93,8 +93,9 @@ var isCoordSexagesimal = function (string) {
  * @returns {boolean}
  */
 var isCoordDecimal = function (string) {
+    var searchArr, x, y;
     // check if string is in decimal notation
-    var searchArr = searchDecimalNotation(string);
+    searchArr = searchDecimalNotation(string);
 
     // regex doesn't match string, abort...
     if (!searchArr) {
@@ -102,8 +103,8 @@ var isCoordDecimal = function (string) {
     }
 
     // run some sanity checks for the input lat and lon values
-    var y = parseFloat(searchArr[1]);
-    var x = parseFloat(searchArr[2]);
+    y = parseFloat(searchArr[1]);
+    x = parseFloat(searchArr[2]);
 
     // latitude
     if (Math.abs(y) > 90) {
@@ -152,9 +153,11 @@ var createCoordFromString = function (string) {
  * @param string raw user input string
  */
 var setCoordSexagesimal = function (searchArr, string) {
+    var x, y;
+
     // convert sexagesimal to decimals
-    var y = toDecimals(searchArr[1], searchArr[2], searchArr[3]);
-    var x = toDecimals(searchArr[5], searchArr[6], searchArr[7]);
+    y = toDecimals(searchArr[1], searchArr[2], searchArr[3]);
+    x = toDecimals(searchArr[5], searchArr[6], searchArr[7]);
     // append '-' depending on direction
     if (searchArr[4] === 'S') {
         y = parseFloat('-' + y);
@@ -176,8 +179,10 @@ var setCoordSexagesimal = function (searchArr, string) {
  * @param string raw user input string
  */
 var setCoordDecimal = function (searchArr, string) {
-    var y = parseFloat(searchArr[1]);
-    var x = parseFloat(searchArr[2]);
+    var x, y;
+
+    y = parseFloat(searchArr[1]);
+    x = parseFloat(searchArr[2]);
 
     lon = x;
     lat = y;
@@ -195,17 +200,17 @@ var setCoordDecimal = function (searchArr, string) {
  * @returns {*}
  */
 var searchSexagesimalNotation = function (string) {
-    var cleanString = cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
-    /**
-     * Regex works for:
-     *
-     * 1.) 45°34'21" N 120°47'23" E
-     * 1.) 45°34'21.3245" N 120°47'23.23432" E
-     * 2.) 45 34 21 N 120 47 23 E
-     * 3.) any combination of the two formats above
-     */
-    var searchSexagesimal = /^#?(\d{1,2})[°]?#?(\d{1,2})[']?#?([0-9]{1,2}\.?[0-9]+)["]?#?([NS])#?(\d{1,3})[°]?#?(\d{1,2})[']?#?([0-9]{1,2}\.?[0-9]+)["]?#?([EW])#?$/;
-    var coordSexa = searchSexagesimal.exec(cleanString);
+    var cleanString = cleanseString(string), // get clean string, runs of whitespaces replaced by '#'
+        /**
+         * Regex works for:
+         *
+         * 1.) 45°34'21" N 120°47'23" E
+         * 1.) 45°34'21.3245" N 120°47'23.23432" E
+         * 2.) 45 34 21 N 120 47 23 E
+         * 3.) any combination of the two formats above
+         */
+        searchSexagesimal = /^#?(\d{1,2})[°]?#?(\d{1,2})[']?#?([0-9]{1,2}\.?[0-9]+)["]?#?([NS])#?(\d{1,3})[°]?#?(\d{1,2})[']?#?([0-9]{1,2}\.?[0-9]+)["]?#?([EW])#?$/,
+        coordSexa = searchSexagesimal.exec(cleanString);
 
     // regex doesn't match string, abort...
     if (!coordSexa) {
@@ -224,14 +229,14 @@ var searchSexagesimalNotation = function (string) {
  * @returns {*}
  */
 var searchDecimalNotation = function (string) {
-    var cleanString = cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
-    /**
-     * Regex works only for (lat lon):
-     *
-     * 1.) 34.45456 -101.21354
-     */
-    var searchDecimal = /^#?(-?[0-9]{1,2}\.?[0-9]+)#(-?[0-9]{1,3}\.?[0-9]+)#?$/;
-    var searchArr = searchDecimal.exec(cleanString);
+    var cleanString = cleanseString(string), // get clean string, runs of whitespaces replaced by '#'
+        /**
+         * Regex works only for (lat lon):
+         *
+         * 1.) 34.45456 -101.21354
+         */
+        searchDecimal = /^#?(-?[0-9]{1,2}\.?[0-9]+)#(-?[0-9]{1,3}\.?[0-9]+)#?$/,
+        searchArr = searchDecimal.exec(cleanString);
 
     // regex doesn't match string, abort...
     if (!searchArr) {
@@ -278,16 +283,16 @@ var toDecimals = function (deg, min, sec) {
  */
 var convertDecToDms = function (decimal) {
     //we only handle positive values
-    var posDegs = Math.abs(decimal);
+    var posDegs = Math.abs(decimal),
     // The whole units of degrees will remain the same (i.e. in 121.135° longitude, start with 121°)
-    var deg = Math.floor(posDegs);
+        deg = Math.floor(posDegs),
     // Multiply the decimal by 60 (i.e. .135 * 60 = 8.1).
-    var degDecimalX60 = (posDegs % 1) * 60;
+        degDecimalX60 = (posDegs % 1) * 60,
     // The whole number becomes the minutes (8').
-    var min = Math.floor(degDecimalX60);
+        min = Math.floor(degDecimalX60),
     // Take the remaining decimal and multiply by 60. (i.e. .1 * 60 = 6).
     // The resulting number becomes the seconds (6"). Seconds can remain as a decimal.
-    var sec = ((degDecimalX60 % 1) * 60).toFixed(3);
+        sec = ((degDecimalX60 % 1) * 60).toFixed(3);
 
     return deg + '°' + min + '\'' + sec + '"';
 };
@@ -299,24 +304,24 @@ var convertDecToDms = function (decimal) {
  * @param y WGS84 latitude decimal value
  */
 var readCoord = function (x, y) {
-
-    x = parseFloat(x);
-    y = parseFloat(y);
+    this.x = parseFloat(x);
+    this.y = parseFloat(y);
 
     // latitude
-    if (Math.abs(y) > 90) {
+    if (Math.abs(this.y) > 90) {
         console.log('Latitude value cannot be higher than 90!');
 
         return false;
     }
     // longitude
-    if (Math.abs(x) > 180) {
+    if (Math.abs(this.x) > 180) {
         console.log('Longitude value cannot ben  hire than 180!');
 
         return false;
     }
-    lon = x;
-    lat = y;
+
+    lon = this.x;
+    lat = this.y;
 
     return true;
 };
@@ -329,7 +334,7 @@ var readCoord = function (x, y) {
  * @returns {boolean}
  */
 var readString = function (string) {
-    if (! createCoordFromString(string)) {
+    if (!createCoordFromString(string)) {
         console.log('Input string ' + string + ' is not a valid coordinate string!');
 
         return false;
@@ -359,11 +364,12 @@ var toDecimal = function () {
  * @returns {string}
  */
 var toSexagesimal = function () {
+    var xDms = convertDecToDms(lon),
+        yDms = convertDecToDms(lat);
+
     // longitude value
-    var xDms = convertDecToDms(lon);
     (lon > 0) ? xDms += 'E' : xDms += 'W';
     // latitude value
-    var yDms = convertDecToDms(lat);
     (lat > 0) ? yDms += 'N' : yDms += 'S';
 
     return yDms + ' ' + xDms;
