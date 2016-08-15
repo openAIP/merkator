@@ -375,7 +375,7 @@ var readString = function (string) {
 var toDecimal = function (format) {
     var decimalString = '';
 
-    format = format.toLowerCase() || 'yx';
+    format = format == undefined ? 'yx' : format.toLowerCase();
 
     if (!_lon || !_lat) {
         console.log('Cannot build decimal string from empty coordinate value!');
@@ -503,4 +503,3 @@ module.exports.getInputString = getInputString;
 module.exports.isValidSexagesimalString = isValidSexagesimalString;
 module.exports.isValidDecimalString = isValidDecimalString;
 module.exports.switchXY = switchXY;
-
