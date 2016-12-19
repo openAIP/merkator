@@ -1,7 +1,0 @@
-{
-  "name":        "openaip-merkator",
-  "description": "Javascript library to read/write WGS84 coordinates in sexagesimal and decimal notation.",
-  "license":     [
-    "MIT"
-  ]
-}
