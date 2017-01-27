@@ -12,6 +12,9 @@
   ],
   "homepage": "https://github.com/openAIP/merkator",
   "main": "dist/merkator.js",
+  "bin": {
+    "merkator": "dist/merkator"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/openAIP/merkator.git"
