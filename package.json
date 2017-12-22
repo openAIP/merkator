@@ -1,6 +1,6 @@
 {
   "name": "openaip-merkator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "keywords": [
     "WGS84",
