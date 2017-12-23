@@ -225,6 +225,11 @@ Merkator.prototype._parseDecimalNotation = function _parseDecimalNotation(string
     var searchDecimal = /^([-+]?([0-8]?\d(\.\d+)?|90(\.0+)?))[,\s]([-+]?(180(\.0+)?|((1[0-7]\d)|([0-9]?\d))(\.\d+)?))$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
     
+    // empty string
+    if (string === '') {
+        return false;
+    }
+    
     var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
     // strip delimiter from string
     var cleanString = cleanString.replace(stripDelimiterRegex, ' ');
@@ -265,6 +270,11 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
     var sexagesimalSuffixedRegex = /^(0?[0-9]|[1-8][0-9]|90)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([NS])\s(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])$/;
     var sexagesimalPrefixedRegex = /^([NS])\s?(0?[0-9]|[1-8][0-9]|90)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s([EW])\s?(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
+    
+    // empty string
+    if (string === '') {
+        return false;
+    }
     
     var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
     // strip delimiter from string
