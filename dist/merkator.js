@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Merkator - Reads and writes WGS84 coordinates in sexagesimal and decimal notation.
  *
@@ -6,7 +8,6 @@
  * For full copyright and license information, please review the LICENSE
  * file that was distributed with this source code.
  */
-"use strict";
 
 function Merkator() {
     this.lon = null;
@@ -110,7 +111,7 @@ Merkator.prototype.readString = function readString(string) {
 Merkator.prototype.toDecimal = function toDecimal(format) {
     var decimalString = '';
     
-    format = format == undefined ? 'xy' : format.toLowerCase();
+    format = format === 'undefined' ? 'xy' : format.toLowerCase();
     
     if (!this.lon || !this.lat) {
         console.log('Cannot build decimal string from empty coordinate value!');
@@ -226,13 +227,13 @@ Merkator.prototype._parseDecimalNotation = function _parseDecimalNotation(string
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
     
     // empty string
-    if (string === '') {
+    if (string === '' || string === undefined) {
         return false;
     }
     
     var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
     // strip delimiter from string
-    var cleanString = cleanString.replace(stripDelimiterRegex, ' ');
+    cleanString = cleanString.replace(stripDelimiterRegex, ' ');
     
     var searchArr = searchDecimal.exec(cleanString);
     
@@ -272,13 +273,13 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
     
     // empty string
-    if (string === '') {
+    if (string === '' || string === undefined) {
         return false;
     }
     
     var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
     // strip delimiter from string
-    var cleanString = cleanString.replace(stripDelimiterRegex, ' ');
+    cleanString = cleanString.replace(stripDelimiterRegex, ' ');
     
     // check prefixed/suffixed hemisphere, suffixed first as this is the most common notation
     var coordSexa = sexagesimalSuffixedRegex.exec(cleanString);
@@ -345,7 +346,7 @@ Merkator.prototype._toDecimals = function _toDecimals(deg, min, sec) {
 /**
  * Sets x and y coordinate value from an array.
  *
- * @param searchArr array returned from parseDecimalNotation() or parseDecimalNotation()
+ * @param decimalArr array returned from parseDecimalNotation() or parseDecimalNotation()
  * @param string raw user input string
  * @returns {*}
  */

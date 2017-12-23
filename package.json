@@ -25,7 +25,7 @@
     "url": "https://github.com/openAIP/merkator/issues"
   },
   "dependencies": {
-    "jquery": "2.*"
+    "jquery": "3.*"
   },
   "devDependencies": {},
   "ext": []
