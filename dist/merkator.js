@@ -220,8 +220,8 @@ Merkator.prototype._parseDecimalNotation = function _parseDecimalNotation(string
     /**
      * Default ordering for coordinates is LAT/LON . Regex works for both LAT/LON and LON/LAT.
      *
-     * 1.) 34.45456 -101.21354
-     * 2.) 34.45456, -101.21354
+     * 34.45456 -101.21354
+     * 34.45456, -101.21354
      */
     var searchDecimal = /^([-+]?([0-8]?\d(\.\d+)?|90(\.0+)?))[,\s]([-+]?(180(\.0+)?|((1[0-7]\d)|([0-9]?\d))(\.\d+)?))$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
@@ -260,16 +260,17 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
     /**
      * Regex works for almost all notations:
      *
-     * 1.) 45°34'21" N 120°47'23" E
-     * 1.) 45°34'21.3245" N 120°47'23.23432" E
-     * 2.) 45 34 21 N 120 47 23 E
-     * 3.) 45:34:21 N 120:47:23 E
-     * 4.) 45:34:21N 120:47:23E
-     * 4.) N 45:34:21 E 120:47:23
-     * 5.) any combination of the formats above
+     * 45°34'2'' N 120°47'23'' E
+     * 45°34'21" N 120°47'23" E
+     * 45°34'21.3245" N 120°47'23.23432" E
+     * 45 34 21 N 120 47 23 E
+     * 45:34:21 N 120:47:23 E
+     * 45:34:21N 120:47:23E
+     * N 45:34:21 E 120:47:23
+     * any combination of the formats above
      */
-    var sexagesimalSuffixedRegex = /^(0?[0-9]|[1-8][0-9]|90)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([NS])\s(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])$/;
-    var sexagesimalPrefixedRegex = /^([NS])\s?(0?[0-9]|[1-8][0-9]|90)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s([EW])\s?(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s])(0?[0-9]|[1-5][0-9]|60)([:\s])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?$/;
+    var sexagesimalSuffixedRegex = /^(0?[0-9]|[1-8][0-9]|90)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([NS])\s(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])$/;
+    var sexagesimalPrefixedRegex = /^([NS])\s?(0?[0-9]|[1-8][0-9]|90)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])\s?(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
     
     // empty string
@@ -277,9 +278,10 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
         return false;
     }
     
-    var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
+    var cleanString = this._cleanseString(string);
     // strip delimiter from string
     cleanString = cleanString.replace(stripDelimiterRegex, ' ');
+    cleanString = this._cleanseString(cleanString);
     
     // check prefixed/suffixed hemisphere, suffixed first as this is the most common notation
     var coordSexa = sexagesimalSuffixedRegex.exec(cleanString);
