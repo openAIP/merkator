@@ -46,31 +46,27 @@ Merkator.prototype.convertDecToDms = function convertDecToDms(decimal) {
  * @returns {*}
  */
 Merkator.prototype.readCoord = function readCoord(x, y) {
-    x = parseFloat(x);
-    y = parseFloat(y);
-    
+    var lon = parseFloat(x);
+    var lat = parseFloat(y);
+
     // latitude
-    if (Math.abs(y) > 90) {
-        console.log('Latitude value cannot be higher than 90!');
-        
-        return false;
+    if (Math.abs(lat) > 90) {
+        throw new Error('Latitude value cannot be higher than 90!');
     }
     // longitude
-    if (Math.abs(x) > 180) {
-        console.log('Longitude value cannot ben  hire than 180!');
-        
-        return false;
+    if (Math.abs(lon) > 180) {
+        throw new Error('Longitude value cannot ben  hire than 180!');
     }
     
-    this.lon = x;
-    this.lat = y;
+    this.lon = lon;
+    this.lat = lat;
     
     return this;
 };
 
 /**
  * Read input string. If string is a valid coordinate string, either as sexagesimal or decimal notation, a valid
- * Merkator object is returned. Otherwise the method will throw a console.log error and return false.
+ * Merkator object is returned. Otherwise the method will throw an error.
  *
  * @param string user input string. Should either be a WGS84 coordinate string in sexagesimal or decimal notation
  * @returns {*}
@@ -86,21 +82,22 @@ Merkator.prototype.readString = function readString(string) {
      * and if it is valid, longitude and latitude decimal values are calculated and stored for further internal
      * processing. The original input string is also stored.
      */
+    // try to read sexagesimal formatted string
     var sexaTokens = this._parseSexagesimalNotation(string);
     if (sexaTokens) {
         this._setFromDecimalArray(sexaTokens, string);
         
-        return true;
+        return this;
     }
+    // no sexagesimal formatted string found, try decimal formatted string
     var decTokens = this._parseDecimalNotation(string);
-    if (!decTokens) {
+    if (decTokens) {
         this._setFromDecimalArray(decTokens, string);
-        console.log('Input string ' + string + ' is not a valid coordinate string!');
-        
-        return false;
+
+        return this;
     }
-    
-    return this;
+    // invalid string
+    throw new Error('Input string ' + string + ' is not a valid coordinate string!')
 };
 
 /**
@@ -114,17 +111,15 @@ Merkator.prototype.toDecimal = function toDecimal(format) {
     format = format === 'undefined' ? 'xy' : format.toLowerCase();
     
     if (!this.lon || !this.lat) {
-        console.log('Cannot build decimal string from empty coordinate value!');
-        
-        return false;
+        throw new Error('Cannot build decimal string from empty coordinate value!');
     }
     
     switch (format) {
         case 'xy':
             decimalString = this.lon + ' ' + this.lat;
             break;
-        default:
         case 'yx':
+        default:
             decimalString = this.lat + ' ' + this.lon;
             break;
     }
@@ -158,9 +153,7 @@ Merkator.prototype.toSexagesimal = function toSexagesimal() {
 Merkator.prototype.toWkt = function toWkt() {
     
     if (!this.lon || !this.lat) {
-        console.log('Cannot build WKT string from empty coordinate value!');
-        
-        return false;
+        throw new Error('Cannot build WKT string from empty coordinate value!');
     }
     
     return 'POINT(' + this.lon + ' ' + this.lat + ')';
