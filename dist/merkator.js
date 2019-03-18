@@ -33,7 +33,7 @@ Merkator.prototype.convertDecToDms = function convertDecToDms(decimal) {
     // Take the remaining decimal and multiply by 60. (i.e. .1 * 60 = 6).
     // The resulting number becomes the seconds (6"). Seconds can remain as a decimal.
     var sec = ((degDecimalX60 % 1) * 60).toFixed(3);
-    
+
     return deg + '°' + min + '\'' + sec + '"';
 };
 
@@ -57,10 +57,10 @@ Merkator.prototype.readCoord = function readCoord(x, y) {
     if (Math.abs(lon) > 180) {
         throw new Error('Longitude value cannot be hire than 180!');
     }
-    
+
     this.lon = lon;
     this.lat = lat;
-    
+
     return this;
 };
 
@@ -76,7 +76,7 @@ Merkator.prototype.readString = function readString(string) {
     if (string === '') {
         return false;
     }
-    
+
     /**
      * Sexagesimal/decimal notation may be inserted in many different ways. Each possible notation is tested
      * and if it is valid, longitude and latitude decimal values are calculated and stored for further internal
@@ -86,7 +86,7 @@ Merkator.prototype.readString = function readString(string) {
     var sexaTokens = this._parseSexagesimalNotation(string);
     if (sexaTokens) {
         this._setFromDecimalArray(sexaTokens, string);
-        
+
         return this;
     }
     // no sexagesimal formatted string found, try decimal formatted string
@@ -107,12 +107,12 @@ Merkator.prototype.readString = function readString(string) {
  */
 Merkator.prototype.toDecimal = function toDecimal() {
     var decimalString = '';
-    
+
     if (!this.lon || !this.lat) {
         throw new Error('Cannot build decimal string from empty coordinate value!');
     }
 
-    return decimalString = this.lat + ' ' + this.lon;;
+    return decimalString = this.lat + ' ' + this.lon;
 };
 
 /**
@@ -123,12 +123,12 @@ Merkator.prototype.toDecimal = function toDecimal() {
 Merkator.prototype.toSexagesimal = function toSexagesimal() {
     var xDms = this.convertDecToDms(this.lon);
     var yDms = this.convertDecToDms(this.lat);
-    
+
     // longitude value
     (this.lon > 0) ? xDms += 'E' : xDms += 'W';
     // latitude value
     (this.lat > 0) ? yDms += 'N' : yDms += 'S';
-    
+
     return yDms + ' ' + xDms;
 };
 
@@ -139,11 +139,11 @@ Merkator.prototype.toSexagesimal = function toSexagesimal() {
  * @returns {*}
  */
 Merkator.prototype.toWkt = function toWkt() {
-    
+
     if (!this.lon || !this.lat) {
         throw new Error('Cannot build WKT string from empty coordinate value!');
     }
-    
+
     return 'POINT(' + this.lon + ' ' + this.lat + ')';
 };
 
@@ -185,7 +185,7 @@ Merkator.prototype._cleanseString = function _cleanseString(string) {
         return false;
     }
     string = string.replace(/,/g, ' ');
-    
+
     return string.replace(/\s+/g, ' ').trim(); // trim string
 };
 
@@ -206,26 +206,26 @@ Merkator.prototype._parseDecimalNotation = function _parseDecimalNotation(string
      */
     var searchDecimal = /^([-+]?([0-8]?\d(\.\d+)?|90(\.0+)?))[,\s]([-+]?(180(\.0+)?|((1[0-7]\d)|([0-9]?\d))(\.\d+)?))$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
-    
+
     // empty string
     if (string === '' || string === undefined) {
         return false;
     }
-    
+
     var cleanString = this._cleanseString(string); // get clean string, runs of whitespaces replaced by '#'
     // strip delimiter from string
     cleanString = cleanString.replace(stripDelimiterRegex, ' ');
-    
+
     var searchArr = searchDecimal.exec(cleanString);
-    
+
     // regex doesn't match string, abort...
     if (!searchArr) {
         return false;
     }
-    
+
     var x = parseFloat(searchArr[1]);
     var y = parseFloat(searchArr[5]);
-    
+
     return [x, y];
 };
 
@@ -250,20 +250,22 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
      * N 45:34:21 E 120:47:23
      * any combination of the formats above
      */
+
+    debugger;
     var sexagesimalSuffixedRegex = /^(0?[0-9]|[1-8][0-9]|90)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([NS])\s(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])$/;
     var sexagesimalPrefixedRegex = /^([NS])\s?(0?[0-9]|[1-8][0-9]|90)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?\s?([EW])\s?(00?[0-9]|0?[1-9][0-9]|[1-9][0-9]|1[0-7][0-9]|180)([:\s?])(0?[0-9]|[1-5][0-9]|60)([:\s?])(0?[0-9]|[1-5][0-9]|60)(\.\d+)?$/;
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
-    
+
     // empty string
     if (string === '' || string === undefined) {
         return false;
     }
-    
+
     var cleanString = this._cleanseString(string);
     // strip delimiter from string
     cleanString = cleanString.replace(stripDelimiterRegex, ' ');
     cleanString = this._cleanseString(cleanString);
-    
+
     // check prefixed/suffixed hemisphere, suffixed first as this is the most common notation
     var coordSexa = sexagesimalSuffixedRegex.exec(cleanString);
     if (coordSexa) {
@@ -292,12 +294,12 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
             var lonSec = coordSexa[13] + coordSexa[14];
         }
     }
-    
+
     // regex doesn't match string, abort...
     if (!coordSexa) {
         return false;
     }
-    
+
     // convert sexagesimal to decimals
     var x = this._toDecimals(lonDeg, lonMin, lonSec);
     var y = this._toDecimals(latDeg, latMin, latSec);
@@ -308,8 +310,8 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
     if (lonCard === 'W') {
         x = parseFloat('-' + x);
     }
-    
-    return [x, y];
+
+    return [y, x];
 };
 
 /**
@@ -322,7 +324,7 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
  */
 Merkator.prototype._toDecimals = function _toDecimals(deg, min, sec) {
     var minutes = parseFloat(min) + parseFloat(sec) / 60;
-    
+
     return parseFloat(deg) + parseFloat(minutes) / 60;
 };
 
@@ -336,11 +338,11 @@ Merkator.prototype._toDecimals = function _toDecimals(deg, min, sec) {
 Merkator.prototype._setFromDecimalArray = function _setFromDecimalArray(decimalArr, string) {
     var y = parseFloat(decimalArr[0]);
     var x = parseFloat(decimalArr[1]);
-    
+
     this.lat = y;
     this.lon = x;
     this.rawString = string;
-    
+
     return this;
 };
 
