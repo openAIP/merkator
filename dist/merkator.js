@@ -55,7 +55,7 @@ Merkator.prototype.readCoord = function readCoord(x, y) {
     }
     // longitude
     if (Math.abs(lon) > 180) {
-        throw new Error('Longitude value cannot ben  hire than 180!');
+        throw new Error('Longitude value cannot be hire than 180!');
     }
     
     this.lon = lon;
