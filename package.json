@@ -1,6 +1,6 @@
 {
   "name": "openaip-merkator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Read/write WGS84 coordinates in sexagesimal and decimal notation.",
   "keywords": [
     "WGS84",
@@ -24,9 +24,7 @@
   "bugs": {
     "url": "https://github.com/openAIP/merkator/issues"
   },
-  "dependencies": {
-    "jquery": "3.*"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "ext": []
 }
