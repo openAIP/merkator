@@ -105,26 +105,14 @@ Merkator.prototype.readString = function readString(string) {
  *
  * @returns {*}
  */
-Merkator.prototype.toDecimal = function toDecimal(format) {
+Merkator.prototype.toDecimal = function toDecimal() {
     var decimalString = '';
-    
-    format = format === 'undefined' ? 'xy' : format.toLowerCase();
     
     if (!this.lon || !this.lat) {
         throw new Error('Cannot build decimal string from empty coordinate value!');
     }
-    
-    switch (format) {
-        case 'xy':
-            decimalString = this.lon + ' ' + this.lat;
-            break;
-        case 'yx':
-        default:
-            decimalString = this.lat + ' ' + this.lon;
-            break;
-    }
-    
-    return decimalString;
+
+    return decimalString = this.lat + ' ' + this.lon;;
 };
 
 /**
@@ -346,11 +334,11 @@ Merkator.prototype._toDecimals = function _toDecimals(deg, min, sec) {
  * @returns {*}
  */
 Merkator.prototype._setFromDecimalArray = function _setFromDecimalArray(decimalArr, string) {
-    var x = parseFloat(decimalArr[0]);
-    var y = parseFloat(decimalArr[1]);
+    var y = parseFloat(decimalArr[0]);
+    var x = parseFloat(decimalArr[1]);
     
-    this.lon = x;
     this.lat = y;
+    this.lon = x;
     this.rawString = string;
     
     return this;
