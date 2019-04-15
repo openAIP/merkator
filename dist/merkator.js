@@ -46,6 +46,13 @@ Merkator.prototype.convertDecToDms = function convertDecToDms(decimal) {
  * @returns {*}
  */
 Merkator.prototype.readCoord = function readCoord(x, y) {
+    if (!this.isValidLon(x)) {
+        throw new Error('Invalid longitude value!');
+    }
+    if (!this.isValidLat(y)) {
+        throw new Error('Invalid latitude value!');
+    }
+
     var lon = parseFloat(x);
     var lat = parseFloat(y);
 
@@ -63,6 +70,34 @@ Merkator.prototype.readCoord = function readCoord(x, y) {
 
     return this;
 };
+
+/**
+ * Evaluates input value to be a valid longitude value including
+ * a range check.
+ *
+ * @param mixed lat
+ *
+ * @return {boolean}
+ */
+Merkator.prototype.isValidLon = function isValidLon(value) {
+    const regex = /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,})?))$/;
+
+    return regex.exec(value);
+}
+
+/**
+ * Evaluates input value to be a valid latitude value including
+ * a range check.
+ *
+ * @param mixed lat
+ *
+ * @return {boolean}
+ */
+Merkator.prototype.isValidLat = function isValidLat(value) {
+ const regex = /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,})?))$/;
+
+ return regex.exec(value);
+}
 
 /**
  * Read input string. If string is a valid coordinate string, either as sexagesimal or decimal notation, a valid
