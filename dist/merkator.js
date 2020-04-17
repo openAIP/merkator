@@ -290,7 +290,7 @@ Merkator.prototype._parseSexagesimalNotation = function _parseSexagesimalNotatio
     var stripDelimiterRegex = /[^A-Za-z0-9- \.]/g;
 
     // empty string
-    if (string === '' || string === undefined) {
+    if (string === '' || string == null) {
         return false;
     }
 
